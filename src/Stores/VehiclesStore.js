@@ -22,9 +22,12 @@ class VehicleStore {
       onValue(vehicleModelRef, (snapshot) => {
         const vehicleModelData = snapshot.val();
 
+        const vehicleMadeArray = Object.values(vehicleMadeData);
+        const vehicleModelArray = Object.values(vehicleModelData);
+
         // Povezivanje vozila sa modelima na osnovu MadeId
-        const combinedData = vehicleMadeData.map((vehicle) => {
-          const models = vehicleModelData.filter(
+        const combinedData = vehicleMadeArray.map((vehicle) => {
+          const models = vehicleModelArray.filter(
             (model) => model.MadeId === vehicle.id
           );
           return {
