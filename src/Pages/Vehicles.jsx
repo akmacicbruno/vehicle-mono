@@ -24,6 +24,10 @@ const Vehicles = observer(({ store }) => {
               ) : (
                 <li>No models available for this vehicle.</li>
               )}
+              <button onClick={() => console.log("Update.")}>Update</button>
+              <button onClick={() => store.deleteVehicleAndModels(vehicle.id)}>
+                Delete
+              </button>
             </ul>
           </li>
         ))}
