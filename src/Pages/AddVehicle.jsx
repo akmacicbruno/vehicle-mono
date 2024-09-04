@@ -2,10 +2,12 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { vehicleForm } from "../Stores/AddVehicleForm"; // Importirajte instancu forme
+import { Link } from "react-router-dom";
 
 const AddVehicleForm = observer(() => {
   return (
     <div>
+      <Link to="/">Back home</Link>
       <h1>Add New Vehicle</h1>
       <form onSubmit={vehicleForm.handleSubmit}>
         <div>

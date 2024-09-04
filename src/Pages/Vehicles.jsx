@@ -1,6 +1,7 @@
 import "../App.css";
 import React, { useEffect } from "react";
 import { observer } from "mobx-react";
+import { Link } from "react-router-dom";
 
 const Vehicles = observer(({ store }) => {
   useEffect(() => {
@@ -9,6 +10,7 @@ const Vehicles = observer(({ store }) => {
 
   return (
     <div className="App">
+      <Link to="/add">Add new vehicle</Link>
       <h1>Vehicle List</h1>
       <ul>
         {store.vehicles.map((vehicle) => (
@@ -24,7 +26,7 @@ const Vehicles = observer(({ store }) => {
               ) : (
                 <li>No models available for this vehicle.</li>
               )}
-              <button onClick={() => console.log("Update.")}>Update</button>
+              <Link to={`/update/${vehicle.id}`}> Uredi</Link>
               <button onClick={() => store.deleteVehicleAndModels(vehicle.id)}>
                 Delete
               </button>
