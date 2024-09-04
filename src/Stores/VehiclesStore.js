@@ -111,7 +111,6 @@ class VehicleStore {
 
       // Obrišite vozilo
       await remove(ref(db, `vehicleMade/${madeId}`));
-      console.log(`Vozilo sa ID ${madeId} je obrisano.`);
 
       // Pronađite i obrišite povezane modele
       const snapshot = await get(modelsRef);
@@ -119,11 +118,10 @@ class VehicleStore {
         const modelData = childSnapshot.val();
         if (modelData.MadeId === madeId) {
           remove(child(modelsRef, childSnapshot.key));
-          console.log(`Model sa ID ${modelData.id} je obrisan.`);
         }
       });
     } catch (error) {
-      console.error("Greška pri brisanju:", error);
+      console.error(error);
     }
   }
 }
