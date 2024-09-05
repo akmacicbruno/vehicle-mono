@@ -8,15 +8,27 @@ const Vehicles = observer(({ store }) => {
     store.fetchVehicles();
   }, [store]);
 
+  const filteredVehicles = store.filteredVehicles;
+
   return (
     <div className="App">
       <Link to="/add">Add new vehicle</Link>
       <h1>Vehicle List</h1>
-      <ul>
-        {store.vehicles.map((vehicle) => (
-          <li key={vehicle.id}>
-            {vehicle.name} ({vehicle.origin})
-            <ul>
+      <input
+        type="text"
+        placeholder="Search for a vehicle by brand name"
+        value={store.searchQuery} // MobX store drži searchQuery
+        onChange={(e) => store.setSearchQuery(e.target.value)}
+      />
+
+      {/* Ako nema pronađenih vozila */}
+      {filteredVehicles.length === 0 ? (
+        <h2>No vehicle found.</h2>
+      ) : (
+        <div>
+          {store.filteredVehicles.map((vehicle) => (
+            <ul key={vehicle.id}>
+              {vehicle.name} ({vehicle.origin})
               {vehicle.models.length > 0 ? (
                 vehicle.models.map((model) => (
                   <li key={model.id}>
@@ -31,9 +43,9 @@ const Vehicles = observer(({ store }) => {
                 Delete
               </button>
             </ul>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
+      )}
     </div>
   );
 });

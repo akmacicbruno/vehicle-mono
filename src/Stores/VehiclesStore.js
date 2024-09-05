@@ -1,4 +1,10 @@
-import { action, makeObservable, observable, runInAction } from "mobx";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
 import {
   ref,
   onValue,
@@ -14,15 +20,23 @@ import { db } from "../Utils/firebase-config";
 class VehicleStore {
   vehicles = [];
   vehiclebyId = [];
+  searchQuery = "";
 
   constructor() {
     makeObservable(this, {
       vehicles: observable,
       vehiclebyId: observable,
+      searchQuery: observable,
       fetchVehicles: action,
       fetchVehicleById: action,
       deleteVehicleAndModels: action,
+      setSearchQuery: action,
+      filteredVehicles: computed,
     });
+  }
+
+  setSearchQuery(query) {
+    this.searchQuery = query;
   }
 
   fetchVehicles() {
@@ -54,6 +68,15 @@ class VehicleStore {
         });
       });
     });
+  }
+
+  get filteredVehicles() {
+    if (this.searchQuery) {
+      return this.vehicles.filter((vehicle) =>
+        vehicle.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    }
+    return this.vehicles;
   }
 
   fetchVehicleById(vehicleId) {
