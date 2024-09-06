@@ -1,0 +1,46 @@
+.search {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+.search-input {
+  width: 300px;
+  font-size: 20px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin: 10px;
+  width: auto;
+}
+
+.card-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-img-top {
+  padding: 15px 0px;
+  width: 50%;
+}
+
+.card-title {
+  margin-bottom: 16px;
+}
+
+.list-group {
+  margin-bottom: 16px;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+}
