@@ -1,0 +1,35 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-title {
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.form-input {
+  width: 33%;
+}
+
+.form-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-cancel {
+  text-align: center;
+  color: black;
+  text-decoration: none;
+}
+
+.form-cancel:hover {
+  color: red;
+  text-decoration: underline;
+}
