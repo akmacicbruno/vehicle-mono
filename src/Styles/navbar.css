@@ -1,0 +1,14 @@
+.navbar-right {
+  justify-content: end;
+}
+
+.navbar-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+.navbar-brand > img {
+  margin-right: 10px;
+}
