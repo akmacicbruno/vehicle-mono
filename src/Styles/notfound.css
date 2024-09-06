@@ -1,0 +1,13 @@
+.notfound-title {
+  margin-top: 16px;
+}
+.back-home-link {
+  text-align: center;
+  color: black;
+  text-decoration: none;
+}
+
+.back-home-link:hover {
+  color: cornflowerblue;
+  text-decoration: underline;
+}
