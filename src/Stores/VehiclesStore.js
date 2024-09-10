@@ -19,26 +19,39 @@ import { db } from "../Utils/firebase-config";
 
 class VehicleStore {
   vehicles = [];
+  vehicleModels = [];
+  uniqueTypes = [];
   vehiclebyId = [];
   searchQuery = "";
+  selectedVehicleType = "";
   loading = true;
+  loading_small = false;
 
   constructor() {
     makeObservable(this, {
       vehicles: observable,
+      vehicleModels: observable,
+      uniqueTypes: observable,
       vehiclebyId: observable,
       searchQuery: observable,
+      selectedVehicleType: observable,
       loading: observable,
       fetchVehicles: action,
       fetchVehicleById: action,
       deleteVehicleAndModels: action,
       setSearchQuery: action,
       filteredVehicles: computed,
+      fetchUniqueVehicleTypes: action,
+      setSelectedVehicleType: action,
     });
   }
 
   setSearchQuery(query) {
     this.searchQuery = query;
+  }
+
+  setSelectedVehicleType(event) {
+    this.selectedVehicleType = event.target.value; // Ažuriranje odabrane vrijednosti
   }
 
   fetchVehicles() {
@@ -74,12 +87,71 @@ class VehicleStore {
   }
 
   get filteredVehicles() {
-    if (this.searchQuery) {
+    // Ako postoji pretraga po imenu
+    if (this.searchQuery && this.searchQuery.trim() !== "") {
+      return this.vehicles.filter((vehicle) => {
+        // Ako postoji odabrani tip vozila i nije zadana opcija
+        if (
+          this.selectedVehicleType &&
+          this.selectedVehicleType !== "Select vehicle type"
+        ) {
+          return (
+            vehicle.name
+              .toLowerCase()
+              .includes(this.searchQuery.toLowerCase()) &&
+            vehicle.models.some(
+              (model) =>
+                model.type &&
+                model.type.toLowerCase() ===
+                  this.selectedVehicleType.toLowerCase()
+            )
+          );
+        }
+        // Ako nema odabranog tipa vozila, samo filtriraj po imenu
+        return vehicle.name
+          .toLowerCase()
+          .includes(this.searchQuery.toLowerCase());
+      });
+    }
+
+    // Ako postoji samo odabrani tip vozila
+    if (
+      this.selectedVehicleType &&
+      this.selectedVehicleType !== "Select vehicle type"
+    ) {
       return this.vehicles.filter((vehicle) =>
-        vehicle.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+        vehicle.models.some(
+          (model) =>
+            model.type &&
+            model.type.toLowerCase() === this.selectedVehicleType.toLowerCase()
+        )
       );
     }
+
+    // Ako nema nijednog kriterija, vrati sva vozila
     return this.vehicles;
+  }
+
+  // Metoda za dohvaćanje vozila i jedinstvenih tipova
+  async fetchUniqueVehicleTypes() {
+    const vehicleModelRef = ref(db, "vehicleModel");
+
+    try {
+      const snapshot = await get(vehicleModelRef);
+      const data = snapshot.val();
+
+      if (data) {
+        const modelsArray = Object.values(data);
+        const types = modelsArray.map((model) => model.type);
+
+        runInAction(() => {
+          this.vehicleModels = modelsArray;
+          this.uniqueTypes = [...new Set(types)]; // Filtriraj jedinstvene tipove
+        });
+      }
+    } catch (error) {
+      console.error("Greška pri dohvaćanju modela vozila:", error);
+    }
   }
 
   fetchVehicleById(vehicleId) {
@@ -116,8 +188,6 @@ class VehicleStore {
             models: models,
           };
 
-          console.log("Combined Vehicle Data:", combinedData);
-
           runInAction(() => {
             this.vehicle = combinedData;
           });
@@ -146,6 +216,7 @@ class VehicleStore {
           remove(child(modelsRef, childSnapshot.key));
         }
       });
+      window.location.href = "/";
     } catch (error) {
       console.error(error);
     }

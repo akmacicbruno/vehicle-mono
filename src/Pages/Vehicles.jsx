@@ -4,10 +4,12 @@ import { observer } from "mobx-react";
 import GridLoader from "react-spinners/GridLoader";
 import VehicleCard from "../Components/VehicleCard";
 import vehiclesStore from "../Stores/VehiclesStore";
+import Form from "react-bootstrap/esm/Form";
 
 const Vehicles = observer(({ store }) => {
   useEffect(() => {
     store.fetchVehicles();
+    store.fetchUniqueVehicleTypes();
   }, [store]);
 
   return (
@@ -31,6 +33,17 @@ const Vehicles = observer(({ store }) => {
               value={store.searchQuery} // MobX store drži searchQuery
               onChange={(e) => store.setSearchQuery(e.target.value)}
             />
+            <Form.Select
+              className="select"
+              aria-label="Select vehicle type"
+              onChange={(e) => store.setSelectedVehicleType(e)}
+              value={store.selectedVehicleType}
+            >
+              <option>Select vehicle type</option>
+              {store.uniqueTypes.map((type, index) => (
+                <option key={index}>{type}</option>
+              ))}
+            </Form.Select>
           </div>
           <VehicleCard store={vehiclesStore}></VehicleCard>
         </div>
