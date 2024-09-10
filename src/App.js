@@ -15,7 +15,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Vehicles store={vehiclesStore} />} />
-          <Route path="add" element={<AddVehicleForm />} />
+          <Route
+            path="add"
+            element={<AddVehicleForm store={vehiclesStore} />}
+          />
           <Route
             path="update/:id"
             element={<UpdateVehicle store={updateVehicle} />}

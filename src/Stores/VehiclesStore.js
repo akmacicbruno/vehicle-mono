@@ -21,12 +21,14 @@ class VehicleStore {
   vehicles = [];
   vehiclebyId = [];
   searchQuery = "";
+  loading = true;
 
   constructor() {
     makeObservable(this, {
       vehicles: observable,
       vehiclebyId: observable,
       searchQuery: observable,
+      loading: observable,
       fetchVehicles: action,
       fetchVehicleById: action,
       deleteVehicleAndModels: action,
@@ -65,6 +67,7 @@ class VehicleStore {
 
         runInAction(() => {
           this.vehicles = combinedData;
+          this.loading = false;
         });
       });
     });

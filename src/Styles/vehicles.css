@@ -44,3 +44,9 @@
   display: flex;
   justify-content: space-between;
 }
+
+.loader-container {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+}
