@@ -46,7 +46,6 @@ class UpdateVehicle extends MobxReactForm {
   origin = "";
   modelName = "";
   modelType = "";
-  loading = true;
 
   constructor() {
     super({ fields }, { plugins });
@@ -57,7 +56,6 @@ class UpdateVehicle extends MobxReactForm {
       origin: observable,
       modelName: observable,
       modelType: observable,
-      loading: observable,
       handleChange: action,
       handleSubmit: action,
       loadVehicleData: action,
@@ -94,9 +92,8 @@ class UpdateVehicle extends MobxReactForm {
         modelName: modelsList[0]?.name || "Unknown", // Pretpostavljamo da je samo jedan model povezan
         modelType: modelsList[0]?.type || "Unknown",
       });
-      this.loading = false;
     } catch (error) {
-      console.error("Greška pri učitavanju podataka:", error);
+      console.error("Error:", error);
     }
   }
 
@@ -154,7 +151,8 @@ class UpdateVehicle extends MobxReactForm {
         update(ref(db), updates);
       }
 
-      alert("Podaci su uspješno ažurirani.");
+      alert("Vehicle data updated.");
+      window.location.href = "/";
     } catch (err) {
       console.error(err);
     }

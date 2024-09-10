@@ -38,6 +38,7 @@ class VehicleForm extends MobxReactForm {
   origin = "";
   modelName = "";
   modelType = "";
+  loading_small = false;
 
   constructor() {
     super({ fields }, { plugins });
@@ -48,8 +49,10 @@ class VehicleForm extends MobxReactForm {
       origin: observable,
       modelName: observable,
       modelType: observable,
+      loading_small: observable,
       handleChange: action,
       handleSubmit: action,
+      toggleLoading: action,
     });
 
     this.handleChange = this.handleChange.bind(this);
@@ -60,14 +63,21 @@ class VehicleForm extends MobxReactForm {
     this.$(e.target.name).set(e.target.value);
   }
 
+  toggleLoading() {
+    this.loading_small = !this.loading_small;
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.validate().then(() => {
       if (this.isValid) {
+        this.toggleLoading();
         this.onSuccess(this);
+        this.toggleLoading();
       } else {
+        this.toggleLoading();
         this.onError(this);
-        console.log("Error occured.");
+        this.toggleLoading();
       }
     });
   }
@@ -100,8 +110,8 @@ class VehicleForm extends MobxReactForm {
       MadeId: vehicleKey,
       ...modelsData,
     });
-
-    form.clear(); // Očisti formu nakon uspješnog unosa
+    alert("New vehicle added to database.");
+    window.location.href = "/add";
   }
 
   // Metoda za neuspješno predavanje forme

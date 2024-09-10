@@ -1,13 +1,14 @@
 .search {
   display: flex;
   justify-content: center;
-  margin-top: 16px;
+  margin-top: 42px;
   margin-bottom: 32px;
+  gap: 20px;
 }
 
 .search-input {
-  width: 300px;
-  font-size: 20px;
+  width: 350px;
+  font-size: 16px;
 }
 
 .card-container {
@@ -49,4 +50,16 @@
   position: absolute;
   top: 50%;
   right: 50%;
+}
+
+.loader-container--small {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.select {
+  width: 250px;
+  font-size: 16px;
 }

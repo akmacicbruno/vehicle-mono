@@ -44,7 +44,11 @@ const VehicleCard = ({ store }) => {
                   </Link>
                   <Button
                     variant="secundary"
-                    onClick={() => store.deleteVehicleAndModels(vehicle.id)}
+                    onClick={() => {
+                      window.confirm(
+                        "Are you sure you want to delete vehicle?"
+                      ) && store.deleteVehicleAndModels(vehicle.id);
+                    }}
                   >
                     Delete
                   </Button>
