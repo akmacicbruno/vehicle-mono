@@ -5,7 +5,7 @@ import Button from "react-bootstrap/esm/Button";
 const Navbar = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand">
             <img
