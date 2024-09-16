@@ -27,6 +27,8 @@ class VehicleStore {
   selectedVehicleType = "";
   loading = true;
   loading_small = false;
+  currentPage = 1; // Current page for pagination
+  pageSize = 10; // Number of items per page
 
   constructor() {
     makeObservable(this, {
@@ -37,6 +39,8 @@ class VehicleStore {
       searchQuery: observable,
       selectedVehicleType: observable,
       loading: observable,
+      currentPage: observable,
+      pageSize: observable,
       fetchVehicles: action,
       fetchVehicleById: action,
       deleteVehicleAndModels: action,
@@ -44,6 +48,8 @@ class VehicleStore {
       filteredVehicles: computed,
       fetchUniqueVehicleTypes: action,
       setSelectedVehicleType: action,
+      setPage: action,
+      pageCount: computed,
     });
   }
 
@@ -53,6 +59,10 @@ class VehicleStore {
 
   setSelectedVehicleType(event) {
     this.selectedVehicleType = event.target.value; // Ažuriranje odabrane vrijednosti
+  }
+
+  setPage(pageNumber) {
+    this.currentPage = pageNumber;
   }
 
   fetchVehicles() {
@@ -88,10 +98,11 @@ class VehicleStore {
   }
 
   get filteredVehicles() {
-    // Ako postoji pretraga po imenu
+    // Apply search and filter criteria
+    let filtered = this.vehicles;
+
     if (this.searchQuery && this.searchQuery.trim() !== "") {
-      return this.vehicles.filter((vehicle) => {
-        // Ako postoji odabrani tip vozila i nije zadana opcija
+      filtered = filtered.filter((vehicle) => {
         if (
           this.selectedVehicleType &&
           this.selectedVehicleType !== "Select vehicle type"
@@ -108,19 +119,17 @@ class VehicleStore {
             )
           );
         }
-        // Ako nema odabranog tipa vozila, samo filtriraj po imenu
         return vehicle.name
           .toLowerCase()
           .includes(this.searchQuery.toLowerCase());
       });
     }
 
-    // Ako postoji samo odabrani tip vozila
     if (
       this.selectedVehicleType &&
       this.selectedVehicleType !== "Select vehicle type"
     ) {
-      return this.vehicles.filter((vehicle) =>
+      filtered = filtered.filter((vehicle) =>
         vehicle.models.some(
           (model) =>
             model.type &&
@@ -129,8 +138,54 @@ class VehicleStore {
       );
     }
 
-    // Ako nema nijednog kriterija, vrati sva vozila
-    return this.vehicles;
+    // Apply pagination logic to the filtered results
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return filtered.slice(startIndex, endIndex);
+  }
+
+  get pageCount() {
+    // Calculate total number of pages based on filtered results
+    let filtered = this.vehicles;
+
+    if (this.searchQuery && this.searchQuery.trim() !== "") {
+      filtered = filtered.filter((vehicle) => {
+        if (
+          this.selectedVehicleType &&
+          this.selectedVehicleType !== "Select vehicle type"
+        ) {
+          return (
+            vehicle.name
+              .toLowerCase()
+              .includes(this.searchQuery.toLowerCase()) &&
+            vehicle.models.some(
+              (model) =>
+                model.type &&
+                model.type.toLowerCase() ===
+                  this.selectedVehicleType.toLowerCase()
+            )
+          );
+        }
+        return vehicle.name
+          .toLowerCase()
+          .includes(this.searchQuery.toLowerCase());
+      });
+    }
+
+    if (
+      this.selectedVehicleType &&
+      this.selectedVehicleType !== "Select vehicle type"
+    ) {
+      filtered = filtered.filter((vehicle) =>
+        vehicle.models.some(
+          (model) =>
+            model.type &&
+            model.type.toLowerCase() === this.selectedVehicleType.toLowerCase()
+        )
+      );
+    }
+
+    return Math.ceil(filtered.length / this.pageSize);
   }
 
   // Metoda za dohvaćanje vozila i jedinstvenih tipova

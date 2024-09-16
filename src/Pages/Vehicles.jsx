@@ -4,12 +4,18 @@ import { observer } from "mobx-react";
 import GridLoader from "react-spinners/GridLoader";
 import VehicleCard from "../Components/VehicleCard";
 import Form from "react-bootstrap/esm/Form";
+import ReactPaginate from "react-paginate";
 
 const Vehicles = observer(({ store }) => {
   useEffect(() => {
     store.fetchVehicles();
     store.fetchUniqueVehicleTypes();
   }, [store]);
+
+  const handlePageClick = (event) => {
+    const selectedPage = event.selected + 1; // react-paginate uses 0-based index
+    store.setPage(selectedPage);
+  };
 
   return (
     <div className="App">
@@ -45,6 +51,23 @@ const Vehicles = observer(({ store }) => {
             </Form.Select>
           </div>
           <VehicleCard store={store.filteredVehicles}></VehicleCard>
+          {store.filteredVehicles.length === 0 ? (
+            <div></div>
+          ) : (
+            <div>
+              <ReactPaginate
+                previousLabel={"Previous"}
+                nextLabel={"Dalje"}
+                breakLabel={"..."}
+                pageCount={store.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>
