@@ -13,9 +13,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/vehicle-mono">
       <Routes>
-        <Route path="/vehicle-mono" element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Vehicles store={vehiclesStore} />} />
           <Route
             path="add"
