@@ -8,6 +8,7 @@ import "./Styles/vehicles.css";
 import "./Styles/navbar.css";
 import "./Styles/form.css";
 import "./Styles/notfound.css";
+import "./Styles/pagination.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

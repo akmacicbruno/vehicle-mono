@@ -1,0 +1,41 @@
+/* App.css */
+.pagination {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0px;
+  margin: 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.175);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.175);
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  border-radius: 3px;
+}
+
+.pagination .active a {
+  background-color: black;
+  color: white;
+}
+
+.pagination a:hover {
+  background-color: #5c636a;
+  color: white;
+}
+
+.pagination li:hover {
+  color: white;
+}
+
+.disabled {
+  display: none !important;
+}
