@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <BrowserRouter basename="/vehicle-mono">
+    <BrowserRouter basename="/vehicle-mono/">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Vehicles store={vehiclesStore} />} />
