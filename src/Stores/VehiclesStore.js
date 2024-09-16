@@ -16,6 +16,7 @@ import {
   child,
 } from "firebase/database";
 import { db } from "../Utils/firebase-config";
+import { toast } from "react-toastify";
 
 class VehicleStore {
   vehicles = [];
@@ -202,7 +203,6 @@ class VehicleStore {
 
   async deleteVehicleAndModels(madeId) {
     try {
-      //const vehiclesRef = ref(db, "vehicleMade");
       const modelsRef = ref(db, "vehicleModel");
 
       // Obrišite vozilo
@@ -216,7 +216,11 @@ class VehicleStore {
           remove(child(modelsRef, childSnapshot.key));
         }
       });
-      window.location.href = "/";
+
+      this.fetchVehicles();
+
+      toast.success("Vehicle deleted.");
+      //window.location.href = "/";
     } catch (error) {
       console.error(error);
     }

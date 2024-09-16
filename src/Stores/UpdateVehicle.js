@@ -11,6 +11,7 @@ import {
   equalTo,
   update,
 } from "firebase/database";
+import { toast } from "react-toastify";
 
 // Definicija polja forme
 const fields = {
@@ -104,7 +105,6 @@ class UpdateVehicle extends MobxReactForm {
         this.onSuccess(this, this.vehicleId);
       } else {
         this.onError(this);
-        console.log("Error occured.");
       }
     });
   }
@@ -149,18 +149,18 @@ class UpdateVehicle extends MobxReactForm {
 
         update(vehicleRef, vehicleMadeData);
         update(ref(db), updates);
-      }
 
-      alert("Vehicle data updated.");
-      window.location.href = "/";
-    } catch (err) {
-      console.error(err);
+        toast.success("Vehicle successfully updated.");
+      }
+    } catch (error) {
+      console.error("An error occurred: " + error);
+      toast.error("Couldn't connect to database. Try again later.");
     }
   }
 
   // Metoda za neuspješno predavanje forme
   onError(form) {
-    alert("Please fill in all required fields correctly.");
+    toast.error("No field should be empty.");
   }
 }
 

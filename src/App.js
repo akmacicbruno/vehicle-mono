@@ -8,6 +8,8 @@ import AddVehicleForm from "./Pages/AddVehicle";
 import UpdateVehicle from "./Pages/UpdateVehicle";
 import NotFound from "./Pages/404";
 import Layout from "./Pages/Layout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -26,6 +28,18 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
+      <ToastContainer
+        position="bottom-center"
+        theme="dark"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </BrowserRouter>
   );
 }

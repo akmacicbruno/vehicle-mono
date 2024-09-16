@@ -4,6 +4,7 @@ import dvr from "mobx-react-form/lib/validators/DVR";
 import validatorjs from "validatorjs";
 import { push, ref, set } from "firebase/database";
 import { db } from "../Utils/firebase-config";
+import { toast } from "react-toastify";
 
 // Definicija polja forme
 const fields = {
@@ -52,7 +53,6 @@ class VehicleForm extends MobxReactForm {
       loading_small: observable,
       handleChange: action,
       handleSubmit: action,
-      toggleLoading: action,
     });
 
     this.handleChange = this.handleChange.bind(this);
@@ -63,21 +63,14 @@ class VehicleForm extends MobxReactForm {
     this.$(e.target.name).set(e.target.value);
   }
 
-  toggleLoading() {
-    this.loading_small = !this.loading_small;
-  }
-
   handleSubmit(e) {
     e.preventDefault();
     this.validate().then(() => {
       if (this.isValid) {
-        this.toggleLoading();
         this.onSuccess(this);
-        this.toggleLoading();
+        toast.success("New vehicle added to database.");
       } else {
-        this.toggleLoading();
         this.onError(this);
-        this.toggleLoading();
       }
     });
   }
@@ -110,13 +103,13 @@ class VehicleForm extends MobxReactForm {
       MadeId: vehicleKey,
       ...modelsData,
     });
-    alert("New vehicle added to database.");
-    window.location.href = "/add";
+
+    form.clear();
   }
 
   // Metoda za neuspješno predavanje forme
   onError(form) {
-    alert("Please fill in all required fields correctly.");
+    toast.error("Fill all fields.");
   }
 }
 
