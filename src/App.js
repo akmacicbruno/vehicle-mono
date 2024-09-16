@@ -15,7 +15,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="akmacicbruno.github.io/vehicle-mono/" element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Vehicles store={vehiclesStore} />} />
           <Route
             path="add"
