@@ -5,6 +5,7 @@ import validatorjs from "validatorjs";
 import { push, ref, set } from "firebase/database";
 import { db } from "../Utils/firebase-config";
 import { toast } from "react-toastify";
+import vehiclesStore from "./VehiclesStore";
 
 // Definicija polja forme
 const fields = {
@@ -104,6 +105,7 @@ class VehicleForm extends MobxReactForm {
       ...modelsData,
     });
 
+    vehiclesStore.setPage(1);
     form.clear();
   }
 

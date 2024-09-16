@@ -12,6 +12,7 @@ import {
   update,
 } from "firebase/database";
 import { toast } from "react-toastify";
+import vehiclesStore from "./VehiclesStore";
 
 // Definicija polja forme
 const fields = {
@@ -150,6 +151,7 @@ class UpdateVehicle extends MobxReactForm {
         update(vehicleRef, vehicleMadeData);
         update(ref(db), updates);
 
+        vehiclesStore.setPage(1);
         toast.success("Vehicle successfully updated.");
       }
     } catch (error) {

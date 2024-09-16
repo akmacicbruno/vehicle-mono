@@ -275,6 +275,7 @@ class VehicleStore {
       this.fetchVehicles();
 
       toast.success("Vehicle deleted.");
+      this.setPage(1);
       //window.location.href = "/";
     } catch (error) {
       console.error(error);
