@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/vehicle-mono/static/css/main.976b4e0d.css",
-    "main.js": "/vehicle-mono/static/js/main.7f84d5e6.js",
+    "main.js": "/vehicle-mono/static/js/main.8a62ab0b.js",
     "static/js/453.6aaf6812.chunk.js": "/vehicle-mono/static/js/453.6aaf6812.chunk.js",
     "index.html": "/vehicle-mono/index.html",
     "main.976b4e0d.css.map": "/vehicle-mono/static/css/main.976b4e0d.css.map",
-    "main.7f84d5e6.js.map": "/vehicle-mono/static/js/main.7f84d5e6.js.map",
+    "main.8a62ab0b.js.map": "/vehicle-mono/static/js/main.8a62ab0b.js.map",
     "453.6aaf6812.chunk.js.map": "/vehicle-mono/static/js/453.6aaf6812.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.976b4e0d.css",
-    "static/js/main.7f84d5e6.js"
+    "static/js/main.8a62ab0b.js"
   ]
 }
