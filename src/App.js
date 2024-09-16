@@ -15,7 +15,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="akmacicbruno.github.io/" element={<Layout />}>
+        <Route path="akmacicbruno.github.io/vehicle-mono/" element={<Layout />}>
           <Route index element={<Vehicles store={vehiclesStore} />} />
           <Route
             path="add"
