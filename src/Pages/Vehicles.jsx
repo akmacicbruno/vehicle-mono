@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import GridLoader from "react-spinners/GridLoader";
 import VehicleCard from "../Components/VehicleCard";
-import vehiclesStore from "../Stores/VehiclesStore";
 import Form from "react-bootstrap/esm/Form";
 
 const Vehicles = observer(({ store }) => {
@@ -45,7 +44,7 @@ const Vehicles = observer(({ store }) => {
               ))}
             </Form.Select>
           </div>
-          <VehicleCard store={vehiclesStore}></VehicleCard>
+          <VehicleCard store={store.filteredVehicles}></VehicleCard>
         </div>
       )}
     </div>

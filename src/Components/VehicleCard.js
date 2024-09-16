@@ -3,23 +3,22 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
 import Card from "react-bootstrap/esm/Card";
 import ListGroup from "react-bootstrap/esm/ListGroup";
+import vehiclesStore from "../Stores/VehiclesStore";
 
 const VehicleCard = ({ store }) => {
-  const filteredVehicles = store.filteredVehicles;
   return (
     <>
       {/* Ako nema pronađenih vozila */}
-      {filteredVehicles.length === 0 ? (
+      {store.length === 0 ? (
         <h2>No vehicle found.</h2>
       ) : (
         <div className="card-container">
-          {store.filteredVehicles.map((vehicle, index) => (
-            <Card bg="light">
+          {store.map((vehicle, index) => (
+            <Card bg="light" key={index}>
               <div className="card-img">
                 <Card.Img variant="top" className="card-img" src="car.svg" />
               </div>
-
-              <Card.Body key={index}>
+              <Card.Body>
                 <Card.Title>{vehicle.name}</Card.Title>
                 {vehicle.models.length > 0 ? (
                   vehicle.models.map((model) => (
@@ -47,7 +46,7 @@ const VehicleCard = ({ store }) => {
                     onClick={() => {
                       window.confirm(
                         "Are you sure you want to delete vehicle?"
-                      ) && store.deleteVehicleAndModels(vehicle.id);
+                      ) && vehiclesStore.deleteVehicleAndModels(vehicle.id);
                     }}
                   >
                     Delete

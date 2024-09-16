@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
-import MoonLoader from "react-spinners/MoonLoader";
 
 const AddVehicleForm = observer(() => {
   return (
@@ -15,7 +14,6 @@ const AddVehicleForm = observer(() => {
       <form onSubmit={vehicleForm.handleSubmit} className="form">
         <div className="form-input">
           <FloatingLabel
-            controlId="floatingInput"
             label={vehicleForm.$("vehicleMade").label}
             className="mb-3"
             name="vehicleMade"
@@ -23,6 +21,7 @@ const AddVehicleForm = observer(() => {
             onChange={(e) => vehicleForm.$("vehicleMade").onChange(e)}
           >
             <Form.Control
+              {...vehicleForm.$("vehicleMade").bind()}
               type="text"
               placeholder={vehicleForm.$("vehicleMade").placeholder}
             />
@@ -30,7 +29,6 @@ const AddVehicleForm = observer(() => {
         </div>
         <div className="form-input">
           <FloatingLabel
-            controlId="floatingInput"
             label={vehicleForm.$("origin").label}
             className="mb-3"
             name="origin"
@@ -38,6 +36,7 @@ const AddVehicleForm = observer(() => {
             onChange={(e) => vehicleForm.$("origin").onChange(e)}
           >
             <Form.Control
+              {...vehicleForm.$("origin").bind()}
               type="text"
               placeholder={vehicleForm.$("origin").placeholder}
             />
@@ -45,7 +44,6 @@ const AddVehicleForm = observer(() => {
         </div>
         <div className="form-input">
           <FloatingLabel
-            controlId="floatingInput"
             label={vehicleForm.$("modelName").label}
             className="mb-3"
             name="modelName"
@@ -53,6 +51,7 @@ const AddVehicleForm = observer(() => {
             onChange={(e) => vehicleForm.$("modelName").onChange(e)}
           >
             <Form.Control
+              {...vehicleForm.$("modelName").bind()}
               type="text"
               placeholder={vehicleForm.$("modelName").placeholder}
             />
@@ -61,7 +60,6 @@ const AddVehicleForm = observer(() => {
 
         <div className="form-input">
           <FloatingLabel
-            controlId="floatingInput"
             label={vehicleForm.$("modelType").label}
             className="mb-3"
             name="modelType"
@@ -69,19 +67,11 @@ const AddVehicleForm = observer(() => {
             onChange={(e) => vehicleForm.$("modelType").onChange(e)}
           >
             <Form.Control
+              {...vehicleForm.$("modelType").bind()}
               type="text"
               placeholder={vehicleForm.$("modelType").placeholder}
             />
           </FloatingLabel>
-        </div>
-        <div className="loader-container--small">
-          <MoonLoader
-            loading={vehicleForm.loading_small}
-            size={20}
-            speedMultiplier={0.7}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
         </div>
         <div className="form-buttons">
           <Button variant="dark" type="submit">
