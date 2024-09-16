@@ -63,3 +63,17 @@
   width: 250px;
   font-size: 16px;
 }
+
+@media screen and (max-width: 600px) {
+  .search {
+    flex-wrap: wrap;
+  }
+  .search-input {
+    width: 100%;
+    margin: 0px 10px;
+  }
+  .select {
+    width: 100%;
+    margin: 0px 10px;
+  }
+}

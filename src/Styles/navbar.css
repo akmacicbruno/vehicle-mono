@@ -12,3 +12,18 @@
 .navbar-brand > img {
   margin-right: 10px;
 }
+
+.navbar-logo {
+  height: 64px;
+  width: 64px;
+}
+
+@media screen and (max-width: 600px) {
+  .navbar > .container-fluid > a {
+    font-size: 20px;
+  }
+  .navbar_logo {
+    height: 32px;
+    width: 32px;
+  }
+}

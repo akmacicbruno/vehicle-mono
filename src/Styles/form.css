@@ -33,3 +33,9 @@
   color: red;
   text-decoration: underline;
 }
+
+@media screen and (max-width: 600px) {
+  .form-input {
+    width: 90%;
+  }
+}

@@ -11,9 +11,7 @@ const Navbar = () => {
             <img
               src="car.svg"
               alt="Logo"
-              width="64"
-              height="64"
-              className="d-inline-block align-text-top"
+              className="d-inline-block align-text-top navbar-logo"
             />
             Vehicles
           </Link>
