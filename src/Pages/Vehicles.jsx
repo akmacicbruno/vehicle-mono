@@ -57,7 +57,7 @@ const Vehicles = observer(({ store }) => {
             <div>
               <ReactPaginate
                 previousLabel={"Previous"}
-                nextLabel={"Dalje"}
+                nextLabel={"Next"}
                 breakLabel={"..."}
                 pageCount={store.pageCount}
                 marginPagesDisplayed={2}
